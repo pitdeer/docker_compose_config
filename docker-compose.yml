@@ -5,31 +5,31 @@ services:
 		volumes:
 			- staging-assets:/app/public/assets
 			- /var/log/app:/app/log
-		deploy:
-      		resources:
-        		limits:
-          			cpus: '0.25'
-          			memory: 800M
-        networks:
-        	default:
-    			external:
-      				name: swarm
-	sidekiq:
+		networks:
+      default:
+        external:
+          name: swarm
+    deploy:
+      resources:
+        limits:
+        	cpus: '0.25'
+        	memory: 800M
+  sidekiq:
 		image: quay.io/netguru/baseimage:0.10.2
+		networks:
+      default:
+        external:
+            name: swarm
+            name: local
+    deploy:
+      resources:
+      	limits:
+      		cpus: '0.25'
+      		memory: 800M
+  crono:
+    image: quay.io/netguru/baseimage:0.10.2
 		deploy:
-      		resources:
-        		limits:
-          			cpus: '0.25'
-          			memory: 800M
-        networks:
-        	default:
-    			external:
-      				name: swarm
-      				name: local
-    crono:
-    	image: quay.io/netguru/baseimage:0.10.2
-		deploy:
-      		resources:
-        		limits:
-          			cpus: '0.25'
-          			memory: 800M
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 800M
