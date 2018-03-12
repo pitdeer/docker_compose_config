@@ -1,0 +1,35 @@
+version: '3'
+services:
+	web:
+		image: quay.io/netguru/baseimage:0.10.2
+		volumes:
+			- staging-assets:/app/public/assets
+			- /var/log/app:/app/log
+		deploy:
+      		resources:
+        		limits:
+          			cpus: '0.25'
+          			memory: 800M
+        networks:
+        	default:
+    			external:
+      				name: swarm
+	sidekiq:
+		image: quay.io/netguru/baseimage:0.10.2
+		deploy:
+      		resources:
+        		limits:
+          			cpus: '0.25'
+          			memory: 800M
+        networks:
+        	default:
+    			external:
+      				name: swarm
+      				name: local
+    crono:
+    	image: quay.io/netguru/baseimage:0.10.2
+		deploy:
+      		resources:
+        		limits:
+          			cpus: '0.25'
+          			memory: 800M
